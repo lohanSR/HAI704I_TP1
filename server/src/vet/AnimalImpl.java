@@ -7,9 +7,9 @@ public class AnimalImpl extends UnicastRemoteObject implements Animal {
     private String nomAnimal;
     private String nomMaitre;
     private String race;
-    private String espece;
+    private Espece espece;
 
-    public AnimalImpl(String nomAnimal, String nomMaitre, String race, String espece) throws RemoteException {
+    public AnimalImpl(String nomAnimal, String nomMaitre, String race, Espece espece) throws RemoteException {
         this.nomAnimal = nomAnimal;
         this.nomMaitre = nomMaitre;
         this.race = race;
@@ -32,7 +32,7 @@ public class AnimalImpl extends UnicastRemoteObject implements Animal {
     }
 
     @Override
-    public String getEspece() throws RemoteException {
+    public Espece getEspece() throws RemoteException {
         return this.espece;
     }
 }

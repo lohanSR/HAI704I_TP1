@@ -16,7 +16,13 @@ public class Client {
             System.out.println("Nom de l'animal : " + stub.getNomAnimal());
             System.out.println("Nom du maitre de l'animal : " + stub.getNomMaitre());
             System.out.println("Nom de la race : " + stub.getRace());
-            System.out.println("Nom de l'espece : " + stub.getEspece());
+            System.out.println("Nom de l'espece avant changement : " + stub.getEspece().getNom());
+
+            Espece espece = stub.getEspece();
+            espece.setNom("Chat");
+            System.out.println("Nom de l'espece local : " + espece.getNom());
+            System.out.println("Nom de l'espece serveur : " + stub.getEspece().getNom());
+            System.out.println("Hashcode Client : " + System.identityHashCode(espece));
         } catch (Exception e) {
             System.err.println("Client exception: " + e);
             e.printStackTrace();
