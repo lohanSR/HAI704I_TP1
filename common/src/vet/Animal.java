@@ -8,4 +8,5 @@ public interface Animal extends Remote {
     String getNomMaitre() throws RemoteException;
     String getRace() throws RemoteException;
     Espece getEspece() throws RemoteException;
+    DossierSuivi getDossierSuivi() throws RemoteException;
 }

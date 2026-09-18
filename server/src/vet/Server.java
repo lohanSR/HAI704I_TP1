@@ -2,6 +2,9 @@ package vet;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Server {
 
@@ -9,7 +12,8 @@ public class Server {
 
     public static void main(String[] args) {
         try {
-            Animal tigre = new AnimalImpl("Tigrou", "Pedro", "race", new Espece("espece", "10 ans"));
+            DossierSuivi dossier = new DossierSuiviImpl("bon", new ArrayList<>(Arrays.asList("fracture", "opération", "operation2")));
+            Animal tigre = new AnimalImpl("Tigrou", "Pedro", "race", new Espece("espece", "10 ans"), dossier);
 
             Registry registry = LocateRegistry.createRegistry(PORT);
             registry.rebind("Tigre", tigre);
