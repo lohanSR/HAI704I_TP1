@@ -33,6 +33,29 @@ public class Client {
                 System.out.println("Patient introuvable");
             }
 
+            System.out.println("\ntest pour A5");
+            System.out.println("Nombre de patients avant : " + cabinet.getPatients().size());
+
+            cabinet.addPatient(
+                    "Django",
+                    "Alice",
+                    "Siamois",
+                    new Espece("Chat", "15 ans"),
+                    "Bon"
+            );
+
+            System.out.println("Nombre de patients après : " + cabinet.getPatients().size());
+
+            Animal nouveau = cabinet.getPatientByName("Django");
+
+            if (nouveau != null) {
+                System.out.println("Patient ajouté : " + nouveau.getNomAnimal());
+                System.out.println("État de santé : "
+                        + nouveau.getDossierSuivi().getEtatSante());
+            } else {
+                System.out.println("Patient non trouvé");
+            }
+
         } catch (Exception e) {
             System.err.println("Client exception: " + e);
             e.printStackTrace();
