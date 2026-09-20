@@ -9,35 +9,29 @@ public class Client {
     public static void main(String[] args) {
         try {
             Registry registry = LocateRegistry.getRegistry(1099);
-            Animal stub = (Animal) registry.lookup("Tigre");
 
-            System.out.println("classe du stub : " + stub.getClass().getName());
-            System.out.println("proxy dynamique ? " + Proxy.isProxyClass(stub.getClass()));
+            Cabinet cabinet = (Cabinet) registry.lookup("Cabinet123");
 
-            System.out.println("Nom de l'animal : " + stub.getNomAnimal());
-            System.out.println("Nom du maitre de l'animal : " + stub.getNomMaitre());
-            System.out.println("Nom de la race : " + stub.getRace());
-            System.out.println("Nom de l'espece avant changement : " + stub.getEspece().getNom());
-
-            Espece espece = stub.getEspece();
-            espece.setNom("Chat");
-            System.out.println("Nom de l'espece local : " + espece.getNom());
-            System.out.println("Nom de l'espece serveur : " + stub.getEspece().getNom());
-            System.out.println("Hashcode Client : " + System.identityHashCode(espece));
-
-            // Dossier
-            DossierSuivi dossier = stub.getDossierSuivi();
-            System.out.println("Etat de santé : " + dossier.getEtatSante());
-            System.out.println("Ajout observation ");
-            dossier.addObservation("Operation 3");
-
-            DossierSuivi dossier2 = stub.getDossierSuivi();
-            System.out.print("Observations : ");
-            List<String> obs = dossier2.getObservations();
-            for (String observation2 : obs) {
-                System.out.print(observation2 + " ");
+            System.out.println("Liste des patients :");
+            for (Animal animal : cabinet.getPatients()) {
+                System.out.println("- " + animal.getNomAnimal());
             }
-            System.out.print("\n");
+
+            System.out.println("\nRecherche de Rex :");
+            Animal rex = cabinet.getPatientByName("Rex");
+
+            if (rex != null) {
+                System.out.println("Patient trouvé : " + rex.getNomAnimal());
+            } else {
+                System.out.println("Patient introuvable");
+            }
+
+            System.out.println("\nRecherche d'un patient inexistant :");
+            Animal inconnu = cabinet.getPatientByName("Inconnu");
+
+            if (inconnu == null) {
+                System.out.println("Patient introuvable");
+            }
 
         } catch (Exception e) {
             System.err.println("Client exception: " + e);
