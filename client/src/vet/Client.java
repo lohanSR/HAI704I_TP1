@@ -30,8 +30,11 @@ public class Client {
             System.out.println("Etat de santé : " + dossier.getEtatSante());
             System.out.println("Ajout observation ");
             dossier.addObservation("Operation 3");
+
+            DossierSuivi dossier2 = stub.getDossierSuivi();
             System.out.print("Observations : ");
-            for (String observation2 : dossier.getObservations()) {
+            List<String> obs = dossier2.getObservations();
+            for (String observation2 : obs) {
                 System.out.print(observation2 + " ");
             }
             System.out.print("\n");
