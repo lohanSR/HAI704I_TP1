@@ -11,6 +11,7 @@ public class Client {
             Registry registry = LocateRegistry.getRegistry(1099);
 
             Cabinet cabinet = (Cabinet) registry.lookup("Cabinet123");
+            cabinet.abonner(new ObservateurClient());
 
             System.out.println("Liste des patients :");
             for (Animal animal : cabinet.getPatients()) {
