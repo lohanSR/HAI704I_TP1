@@ -57,6 +57,20 @@ public class Client {
                 System.out.println("Patient non trouvé");
             }
 
+            Espece chien = new Chien("Pedro", "14 ans");
+            cabinet.addPatient(
+                    "Pedro",
+                    "M",
+                    "M",
+                    chien,
+                    "Bon"
+            );
+
+            System.out.println("Liste des patients :");
+            for (Animal animal : cabinet.getPatients()) {
+                System.out.println("- " + animal.getNomAnimal());
+            }
+
         } catch (Exception e) {
             System.err.println("Client exception: " + e);
             e.printStackTrace();
