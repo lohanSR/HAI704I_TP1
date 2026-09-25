@@ -27,6 +27,11 @@ public class InterfaceCLI {
                     case 1:
                         this.afficherPatients();
                         break;
+                    case 2:
+                        System.out.print("Nom du patient : ");
+                        String nom = scanner.nextLine();
+                        this.rechercherPatient(nom);
+                        break;
                     default:
                         System.out.println("Il faut choisir une option valide");
                 }
@@ -41,6 +46,7 @@ public class InterfaceCLI {
     private static void affichageCLI() {
         System.out.println("\n=== Cabinet Vétérinaire ===");
         System.out.println("1. Lister les patients");
+        System.out.println("2. Rechercher un patient");
         System.out.println("0. Quitter");
         System.out.print("\nChoix : ");
     }
@@ -57,5 +63,9 @@ public class InterfaceCLI {
         for (String name : patients) {
             System.out.println("- " + name);
         }
+    }
+
+    private void rechercherPatient(String nom) {
+        System.out.println(this.logique.rechercherPatient(nom));
     }
 }

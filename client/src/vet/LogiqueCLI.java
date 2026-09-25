@@ -23,4 +23,20 @@ public class LogiqueCLI {
             return null;
         }
     }
+
+    public String rechercherPatient(String nom) {
+        try {
+            Animal patient = this.cabinet.getPatientByName(nom);
+
+            if (patient == null) {
+                return "Patient introuvable";
+            }
+
+            String msg = "\nNom : " + patient.getNomAnimal() + "\nMaitre : " + patient.getNomMaitre() + "\nRace : " +
+                    patient.getRace() + "\nEspèce : " + patient.getEspece().getNom();
+            return msg;
+        } catch (RemoteException e) {
+            return "Impossible de contacter le serveur";
+        }
+    }
 }
