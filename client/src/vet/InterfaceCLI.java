@@ -78,19 +78,27 @@ public class InterfaceCLI {
         String nomAnimal, nomMaitre, nomRace, etatSante, nomEspece, esperanceVie;
 
         System.out.println("=== Nouveau patient ===");
-        System.out.print("Nom de l'animal : ");
-        nomAnimal = this.scanner.nextLine();
-        System.out.print("Nom du maitre : ");
-        nomMaitre = this.scanner.nextLine();
-        System.out.print("Race : ");
-        nomRace = this.scanner.nextLine();
-        System.out.print("Espèce : ");
-        nomEspece = this.scanner.nextLine();
-        System.out.print("Espérance de vie moyenne : ");
-        esperanceVie = this.scanner.nextLine();
-        System.out.print("Etat de santé initial : ");
-        etatSante = this.scanner.nextLine();
+        nomAnimal = lireChampObligatoire("Nom de l'animal : ");
+        nomMaitre = lireChampObligatoire("Nom du maître : ");
+        nomRace = lireChampObligatoire("Race : ");
+        nomEspece = lireChampObligatoire("Espèce : ");
+        esperanceVie = lireChampObligatoire("Espérance de vie moyenne : ");
+        etatSante = lireChampObligatoire("Etat de santé initial : ");
 
         System.out.println(this.logique.enregistrerPatient(nomAnimal, nomMaitre, nomRace, new Espece(nomEspece, esperanceVie), etatSante));
+    }
+
+    private String lireChampObligatoire(String message) {
+        while (true) {
+            System.out.print(message);
+            String saisie = scanner.nextLine();
+
+            if (saisie.isBlank()) {
+                System.out.println("Ce champ est obligatoire.");
+                continue;
+            }
+
+            return saisie.trim();
+        }
     }
 }
