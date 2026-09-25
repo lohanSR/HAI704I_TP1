@@ -115,8 +115,12 @@ public class InterfaceCLI {
     private void gererDossier() {
         String nomPatient = lireChampObligatoire("Nom du patient : ");
 
-        if (!this.logique.patientExiste(nomPatient)) {
+        StatutPatient statutPatient = this.logique.verifierPatient(nomPatient);
+        if (statutPatient == StatutPatient.INTROUVABLE) {
             System.out.println("Patient introuvable.");
+            return;
+        } else if (statutPatient == StatutPatient.SERVEUR_INDISPONIBLE) {
+            System.out.println("Impossible de contacter le serveur");
             return;
         }
 

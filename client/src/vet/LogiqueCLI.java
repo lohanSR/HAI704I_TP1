@@ -76,18 +76,22 @@ public class LogiqueCLI {
             dossierSuivi.addObservation(observation);
 
             return "Observation ajoutée au dossier de \"" + nomPatient + "\" avec succès.";
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             return "Impossible de contacter le serveur";
         }
     }
 
-    public boolean patientExiste(String nom) {
+    public StatutPatient verifierPatient(String nom) {
         try {
             Animal patient = this.cabinet.getPatientByName(nom);
 
-            return patient != null;
+            if (patient == null) {
+                return StatutPatient.INTROUVABLE;
+            }
+
+            return StatutPatient.EXISTE;
         } catch (RemoteException e) {
-            return false;
+            return StatutPatient.SERVEUR_INDISPONIBLE;
         }
     }
 
