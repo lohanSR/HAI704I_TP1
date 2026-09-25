@@ -29,12 +29,14 @@ public class InterfaceCLI {
                         this.afficherPatients();
                         break;
                     case 2:
-                        System.out.print("Nom du patient : ");
-                        String nom = this.scanner.nextLine();
+                        String nom = lireChampObligatoire("Nom du patient : ");
                         this.rechercherPatient(nom);
                         break;
                     case 3:
                         this.enregistrerPatient();
+                        break;
+                    case 4:
+                        this.gererDossier();
                         break;
                     default:
                         System.out.println("Il faut choisir une option valide");
@@ -47,12 +49,22 @@ public class InterfaceCLI {
         }
     }
 
-    private static void affichageCLI() {
+    private void affichageCLI() {
         System.out.println("\n=== Cabinet Vétérinaire ===");
         System.out.println("1. Lister les patients");
         System.out.println("2. Rechercher un patient");
         System.out.println("3. Enregistrer un nouveau patient");
+        System.out.println("4. Gérer le dossier d'un patient");
         System.out.println("0. Quitter");
+        System.out.print("\nChoix : ");
+    }
+
+    private void affichageCLIDossier(String nomPatient) {
+        System.out.println("\n=== Dossier de " + nomPatient + " ===");
+        System.out.println("1. Consulter");
+        System.out.println("2. Modifier état");
+        System.out.println("3. Ajouter observation");
+        System.out.println("0. Retour");
         System.out.print("\nChoix : ");
     }
 
@@ -74,6 +86,18 @@ public class InterfaceCLI {
         System.out.println(this.logique.rechercherPatient(nom));
     }
 
+    private void consulterDossier(String nom) {
+        System.out.println(this.logique.consulterDossier(nom));
+    }
+
+    private void modifierEtatSanteDossier(String nomPatient, String etatSante) {
+        System.out.println(this.logique.modifierEtatSanteDossier(nomPatient, etatSante));
+    }
+
+    private void ajouterObservationDossier(String nomPatient, String observation) {
+        System.out.println(this.logique.ajouterObservationDossier(nomPatient, observation));
+    }
+
     private void enregistrerPatient() {
         String nomAnimal, nomMaitre, nomRace, etatSante, nomEspece, esperanceVie;
 
@@ -86,6 +110,45 @@ public class InterfaceCLI {
         etatSante = lireChampObligatoire("Etat de santé initial : ");
 
         System.out.println(this.logique.enregistrerPatient(nomAnimal, nomMaitre, nomRace, new Espece(nomEspece, esperanceVie), etatSante));
+    }
+
+    private void gererDossier() {
+        String nomPatient = lireChampObligatoire("Nom du patient : ");
+
+        if (!this.logique.patientExiste(nomPatient)) {
+            System.out.println("Patient introuvable.");
+            return;
+        }
+
+        while (true) {
+            affichageCLIDossier(nomPatient);
+
+            try {
+                int choix = Integer.parseInt(this.scanner.nextLine());
+
+                if (choix == 0) {
+                    return;
+                }
+
+                switch (choix) {
+                    case 1:
+                        this.consulterDossier(nomPatient);
+                        break;
+                    case 2:
+                        String etatSante = lireChampObligatoire("Nouvel état de santé : ");
+                        this.modifierEtatSanteDossier(nomPatient, etatSante);
+                        break;
+                    case 3:
+                        String observation = lireChampObligatoire("Nouvelle observation du patient : ");
+                        this.ajouterObservationDossier(nomPatient, observation);
+                        break;
+                    default:
+                        System.out.println("Il faut choisir une option valide");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Veuillez entrer un nombre");
+            }
+        }
     }
 
     private String lireChampObligatoire(String message) {

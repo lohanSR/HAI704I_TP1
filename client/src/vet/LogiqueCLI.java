@@ -32,11 +32,62 @@ public class LogiqueCLI {
                 return "Patient introuvable";
             }
 
-            String msg = "\nNom : " + patient.getNomAnimal() + "\nMaitre : " + patient.getNomMaitre() + "\nRace : " +
+            return "\nNom : " + patient.getNomAnimal() + "\nMaitre : " + patient.getNomMaitre() + "\nRace : " +
                     patient.getRace() + "\nEspèce : " + patient.getEspece().getNom();
-            return msg;
         } catch (RemoteException e) {
             return "Impossible de contacter le serveur";
+        }
+    }
+
+    public String consulterDossier(String nom) {
+        try {
+            DossierSuivi dossierSuivi = this.cabinet.getPatientByName(nom).getDossierSuivi();
+
+            StringBuilder msg = new StringBuilder("\n=== Dossier de " + nom + " ==="
+                    + "\nÉtat de santé : " + dossierSuivi.getEtatSante()
+                    + "\nObservations :");
+
+            for (String observation : dossierSuivi.getObservations()) {
+                msg.append("\n- ").append(observation);
+            }
+
+            return msg.toString();
+        } catch (RemoteException e) {
+            return "Impossible de contacter le serveur";
+        }
+    }
+
+    public String modifierEtatSanteDossier(String nomPatient, String etatSante) {
+        try {
+            DossierSuivi dossierSuivi = this.cabinet.getPatientByName(nomPatient).getDossierSuivi();
+
+            dossierSuivi.setEtatSante(etatSante);
+
+            return "État de santé de \"" + nomPatient + "\" mis à jour avec succès.";
+        } catch (RemoteException e) {
+            return "Impossible de contacter le serveur";
+        }
+    }
+
+    public String ajouterObservationDossier(String nomPatient, String observation) {
+        try {
+            DossierSuivi dossierSuivi = this.cabinet.getPatientByName(nomPatient).getDossierSuivi();
+
+            dossierSuivi.addObservation(observation);
+
+            return "Observation ajoutée au dossier de \"" + nomPatient + "\" avec succès.";
+        } catch (Exception e) {
+            return "Impossible de contacter le serveur";
+        }
+    }
+
+    public boolean patientExiste(String nom) {
+        try {
+            Animal patient = this.cabinet.getPatientByName(nom);
+
+            return patient != null;
+        } catch (RemoteException e) {
+            return false;
         }
     }
 
