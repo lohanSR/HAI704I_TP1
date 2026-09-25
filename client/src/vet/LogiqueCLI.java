@@ -39,4 +39,13 @@ public class LogiqueCLI {
             return "Impossible de contacter le serveur";
         }
     }
+
+    public String enregistrerPatient(String nomAnimal, String nomMaitre, String race, Espece espece, String etatSante) {
+        try {
+            this.cabinet.addPatient(nomAnimal, nomMaitre, race, espece, etatSante);
+            return "Patient \"" + nomAnimal + "\" enregistré avec succès.";
+        } catch (RemoteException e) {
+            return "Impossible de contacter le serveur";
+        }
+    }
 }
