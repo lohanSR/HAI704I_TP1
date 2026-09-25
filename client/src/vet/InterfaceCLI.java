@@ -38,6 +38,9 @@ public class InterfaceCLI {
                     case 4:
                         this.gererDossier();
                         break;
+                    case 5:
+                        this.changerAbonnementAlerte();
+                        break;
                     default:
                         System.out.println("Il faut choisir une option valide");
                 }
@@ -55,6 +58,11 @@ public class InterfaceCLI {
         System.out.println("2. Rechercher un patient");
         System.out.println("3. Enregistrer un nouveau patient");
         System.out.println("4. Gérer le dossier d'un patient");
+        if (this.logique.estAbonne()) {
+            System.out.println("5. Se désabonner des alertes");
+        } else {
+            System.out.println("5. S'abonner aux alertes");
+        }
         System.out.println("0. Quitter");
         System.out.print("\nChoix : ");
     }
@@ -96,6 +104,10 @@ public class InterfaceCLI {
 
     private void ajouterObservationDossier(String nomPatient, String observation) {
         System.out.println(this.logique.ajouterObservationDossier(nomPatient, observation));
+    }
+
+    private void changerAbonnementAlerte() {
+        System.out.println(this.logique.changerAbonnementAlertes());
     }
 
     private void enregistrerPatient() {

@@ -10,6 +10,6 @@ public class ObservateurClient extends UnicastRemoteObject implements Observateu
 
     @Override
     public void alerteRecue(String message) throws RemoteException {
-        System.out.println("[ALERTE] " + message);
+        System.out.println("\n[ALERTE] " + message);
     }
 }

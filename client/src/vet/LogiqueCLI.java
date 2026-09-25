@@ -1,11 +1,14 @@
 package vet;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogiqueCLI {
     private Cabinet cabinet;
+    private ObservateurClient observateur = null;
+    private boolean abonneAlerte = false;
 
     public LogiqueCLI(Cabinet cabinet) {
         this.cabinet = cabinet;
@@ -102,5 +105,27 @@ public class LogiqueCLI {
         } catch (RemoteException e) {
             return "Impossible de contacter le serveur";
         }
+    }
+
+    public String changerAbonnementAlertes() {
+        try {
+            if (!abonneAlerte) {
+                this.observateur = new ObservateurClient();
+                this.cabinet.abonner(this.observateur);
+                this.abonneAlerte = true;
+                return "Abonnement aux alertes effectué avec succès.";
+            }
+            this.cabinet.desabonner(this.observateur);
+            UnicastRemoteObject.unexportObject(this.observateur, true);
+            this.observateur = null;
+            this.abonneAlerte = false;
+            return "Désabonnement des alertes effectué avec succès.";
+        } catch (RemoteException e) {
+            return "Impossible de contacter le serveur.";
+        }
+    }
+
+    public boolean estAbonne() {
+        return abonneAlerte;
     }
 }
