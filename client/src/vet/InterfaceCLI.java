@@ -1,6 +1,5 @@
 package vet;
 
-import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,6 +20,7 @@ public class InterfaceCLI {
                 int choix = Integer.parseInt(this.scanner.nextLine());
 
                 if (choix == 0) {
+                    this.logique.fermer();
                     break;
                 }
 
@@ -47,7 +47,7 @@ public class InterfaceCLI {
             } catch (NumberFormatException e ) {
                 System.out.println("Veuillez entrer un nombre");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Une erreur est survenue.");
             }
         }
     }

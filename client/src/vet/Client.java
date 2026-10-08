@@ -9,8 +9,10 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.getRegistry(1099);
+            String host = args.length > 0 ? args[0] : "localhost";
+            int port = args.length > 1 ? Integer.parseInt(args[1]) : 1099;
 
+            Registry registry = LocateRegistry.getRegistry(host, port);
             Cabinet cabinet = (Cabinet) registry.lookup("Cabinet123");
             //cabinet.abonner(new ObservateurClient());
 
@@ -19,8 +21,7 @@ public class Client {
 
 
         } catch (Exception e) {
-            System.err.println("Client exception: " + e);
-            e.printStackTrace();
+            System.err.println("Impossible de se connecter au cabinet : " + e.getMessage());
         }
     }
 }

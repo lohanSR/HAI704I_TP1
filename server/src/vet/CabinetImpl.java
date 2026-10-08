@@ -32,9 +32,6 @@ public class CabinetImpl extends UnicastRemoteObject implements Cabinet {
 
         System.out.println("nbPatients : " + (this.patients.size() + 1));
         switch ((this.patients.size() + 1)) {
-            case 4:
-                this.publier(4);
-                break;
             case 100:
                 this.publier(100);
                 break;

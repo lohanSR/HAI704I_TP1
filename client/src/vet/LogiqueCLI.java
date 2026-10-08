@@ -128,4 +128,25 @@ public class LogiqueCLI {
     public boolean estAbonne() {
         return abonneAlerte;
     }
+
+    public void fermer() {
+        if (this.observateur == null) {
+            return;
+        }
+
+        try {
+            this.cabinet.desabonner(this.observateur);
+        } catch (RemoteException e) {
+            // Le serveur peut déjà être inaccessible
+        } finally {
+            try {
+                UnicastRemoteObject.unexportObject(this.observateur, true);
+            } catch (RemoteException e) {
+                // L'observateur était peut-être déjà désexporté
+            }
+
+            this.observateur = null;
+            this.abonneAlerte = false;
+        }
+    }
 }
