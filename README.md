@@ -39,18 +39,21 @@ Dans un autre terminal :
 java -cp out/common:out/client vet.Client localhost 1099
 ```
 
-Il est possible de lancer plusieurs clients en même temps.
-
 Si aucun argument n'est donné, le client utilise `localhost` et le port `1099`.
 
 ## Fonctionnalités
 
 Depuis la CLI, il est possible de :
 
-- lister les patients ;
-- rechercher un patient ;
-- enregistrer un nouveau patient ;
-- consulter et modifier son dossier de suivi ;
-- ajouter une observation ;
-- s'abonner ou se désabonner des alertes ;
-- quitter proprement l'application.
+- lister les patients
+- rechercher un patient
+- enregistrer un nouveau patient
+- consulter et modifier son dossier de suivi
+- ajouter une observation
+- s'abonner ou se désabonner des alertes
+- quitter proprement l'application
+
+### Environnement technique
+
+- **Version de Java :** OpenJDK 25
+- **Environnement de développement :** IntelliJ IDEA

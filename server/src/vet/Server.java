@@ -32,7 +32,7 @@ public class Server {
             registry.rebind("Cabinet123", cabinet);
 
             System.out.println("Server ready, port " + PORT + ")");
-            System.out.println("Hashcode Serveur : " + System.identityHashCode(tigrou.getEspece()));
+            //System.out.println("Hashcode Serveur : " + System.identityHashCode(tigrou.getEspece()));
         } catch (Exception e) {
             System.err.println("Server exception: " + e);
             e.printStackTrace();

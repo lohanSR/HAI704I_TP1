@@ -30,7 +30,7 @@ public class CabinetImpl extends UnicastRemoteObject implements Cabinet {
         DossierSuivi dossierSuivi = new DossierSuiviImpl(etatSante, new ArrayList<String>());
         Animal animal = new AnimalImpl(nom, nomMaitre, race, espece, dossierSuivi);
 
-        System.out.println("nbPatients : " + (this.patients.size() + 1));
+        //System.out.println("nbPatients : " + (this.patients.size() + 1));
         switch ((this.patients.size() + 1)) {
             case 100:
                 this.publier(100);
